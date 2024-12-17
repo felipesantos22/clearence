@@ -39,10 +39,7 @@ struct ResultsCreatineView: View {
                         Button(action: {
                             viewModel.clearResult(result: result, context: context)
                         }){
-                            Text("Excluir")
-                                .bold()
-                                .foregroundColor(.red)
-                                .padding()
+                            Text("Excluir").foregroundColor(.red)
                         }
                     }
                     .padding()

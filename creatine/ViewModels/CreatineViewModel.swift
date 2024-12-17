@@ -15,6 +15,7 @@ final class CreatineViewModel: ObservableObject {
     @Published var creatinine: String = "" // Creatinina sérica
     @Published var sex: Sex = .feminino // Sexo
     @Published var clearanceResult: Double? = nil // Resultado do cálculo
+    @Published var isLoading: Bool = false
     
     func calculateClearance(context:ModelContext) {
         // Validação e conversão de entradas
@@ -81,5 +82,12 @@ final class CreatineViewModel: ObservableObject {
     func clearResult(result: Creatinine, context: ModelContext) {
         context.delete(result)
         try? context.save()
+    }
+    
+    func startApp() {
+        isLoading = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.isLoading = false
+        }
     }
 }

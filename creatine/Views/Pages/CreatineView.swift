@@ -15,14 +15,20 @@ struct CreatineView: View {
     
     var body: some View {
         ZStack {
+            // Fundo branco em toda a tela
             Color.white.edgesIgnoringSafeArea(.all)
+            
             VStack {
+                // Título
                 Text("Clearance de Creatinina")
                     .foregroundColor(.black)
                     .bold()
                     .font(.system(size: 26))
+                    .padding(.top, 20)
                 
+                // Campos de entrada
                 VStack(spacing: 20) {
+                    // Idade
                     VStack {
                         TextField("Idade (anos):", text: $viewModel.age)
                             .keyboardType(.numberPad)
@@ -34,6 +40,7 @@ struct CreatineView: View {
                             .frame(width: 200, height: 1)
                     }
                     
+                    // Peso
                     VStack {
                         TextField("Peso (Kg):", text: $viewModel.weight)
                             .keyboardType(.decimalPad)
@@ -45,6 +52,7 @@ struct CreatineView: View {
                             .frame(width: 200, height: 1)
                     }
                     
+                    // Creatinina
                     VStack {
                         TextField("Creatinina sérica (mg/dL):", text: $viewModel.creatinine)
                             .keyboardType(.decimalPad)
@@ -56,6 +64,7 @@ struct CreatineView: View {
                             .frame(width: 200, height: 1)
                     }
                     
+                    // Sexo
                     VStack {
                         Picker("Sexo", selection: $viewModel.sex) {
                             ForEach(Sex.allCases, id: \.self) { sex in
@@ -68,8 +77,12 @@ struct CreatineView: View {
                 }
                 .padding()
                 
+                // Botões e Resultado
                 VStack(spacing: 20) {
-                    Button(action: {viewModel.calculateClearance(context:context)}) {
+                    // Botão para calcular
+                    Button(action: {
+                        viewModel.calculateClearance(context: context)
+                    }) {
                         Text("Calcular")
                             .font(.callout)
                             .frame(width: 200, height: 50)
@@ -78,13 +91,14 @@ struct CreatineView: View {
                             .cornerRadius(25)
                     }
                     
+                    // Resultado
                     if let result = viewModel.clearanceResult {
                         Text("Resultado: \(String(format: "%.2f", result)) mL/min")
                             .font(.headline)
                             .foregroundColor(.blue)
                             .padding()
                     }
-                    
+                
                     NavigationLink(destination: ResultsCreatineView()) {
                         Text("Ver Resultados")
                             .font(.callout)
@@ -93,9 +107,24 @@ struct CreatineView: View {
                     .padding(.top, 30)
                 }
             }
+            
+            // Carregamento
+            if viewModel.isLoading {
+                ZStack {
+                    Color(.systemBackground)
+                        .edgesIgnoringSafeArea(.all)
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .black))
+                        .scaleEffect(2)
+                }
+            }
+        }
+        .onAppear {
+            viewModel.startApp()
         }
     }
 }
+
 
 #Preview {
     CreatineView()
