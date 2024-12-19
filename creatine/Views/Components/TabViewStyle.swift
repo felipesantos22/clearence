@@ -21,10 +21,10 @@ struct TabViewStyle: View {
             }
             
             
-            Tab("Account", systemImage: "person.crop.circle.fill") {
-                LoginView()
-            }
-            .badge("!")
+//            Tab("Account", systemImage: "person.crop.circle.fill") {
+//                LoginView()
+//            }
+//            .badge("!")
         }
     }
 }

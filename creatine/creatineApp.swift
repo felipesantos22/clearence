@@ -12,7 +12,9 @@ import SwiftData
 struct creatineApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationStack {
+                TabViewStyle()
+            }
         }
         .modelContainer(for: Creatinine.self)
     }

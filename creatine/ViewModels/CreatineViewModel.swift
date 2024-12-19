@@ -90,4 +90,10 @@ final class CreatineViewModel: ObservableObject {
             self.isLoading = false
         }
     }
+    
+    func clearResultsAfterSave() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3){
+            self.clearanceResult = 0.0
+        }
+    }
 }

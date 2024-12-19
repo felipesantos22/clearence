@@ -97,12 +97,15 @@ struct CreatineView: View {
                             .font(.headline)
                             .foregroundColor(.blue)
                             .padding()
+                            .onAppear {
+                                viewModel.clearResultsAfterSave()
+                            }
                     }
                 
                     NavigationLink(destination: ResultsCreatineView()) {
                         Text("Ver Resultados")
-                            .font(.callout)
-                            .bold()
+                            .foregroundColor(Color.black)
+                            .fontWeight(.bold)
                     }
                     .padding(.top, 30)
                 }
